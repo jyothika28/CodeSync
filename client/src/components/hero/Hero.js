@@ -2,7 +2,7 @@ import React from "react";
 import "./Hero.css";
 import "../../App.css";
 import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, microsoftProvider } from "../../config/firebase";
+import { auth, googleProvider, githubProvider } from "../../config/firebase";
 
 function Hero() {
   const handleGoogleSignIn = async () => {
@@ -17,18 +17,32 @@ function Hero() {
       console.log(error);
     }
   };
-  const handleMicrosoftSignIn = async () => {
+  const handleGithubSignIn = async () => {
     try {
-      await signInWithPopup(auth, microsoftProvider).then((result) => {
-        console.log("microsoft");
-        console.log("Logged in user name:", result.user.displayName); // Log the user's name
+      await signInWithPopup(auth, githubProvider).then((result) => {
+        console.log("github");
+        console.log("Logged in user name:", result.user.displayName);
       });
     } catch (error) {
       alert("Authentication failed, Please try again!");
-      console.log("redirect error");
-      console.log(error);
+      console.error("Error code:", error.code);
+      console.error("Error message:", error.message);
+      console.error("Error details:", error);
     }
   };
+
+  // const handleMicrosoftSignIn = async () => {
+  //   try {
+  //     await signInWithPopup(auth, microsoftProvider).then((result) => {
+  //       console.log("microsoft");
+  //       console.log("Logged in user name:", result.user.displayName); // Log the user's name
+  //     });
+  //   } catch (error) {
+  //     alert("Authentication failed, Please try again!");
+  //     console.log("redirect error");
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className="hero">
@@ -110,9 +124,9 @@ function Hero() {
               
                 className="button-google"
           
-                onClick={handleMicrosoftSignIn}
+                onClick={handleGithubSignIn}
               >
-                Continue with Outlook
+                Continue with GitHub
               </button>
               </div>
             </div>

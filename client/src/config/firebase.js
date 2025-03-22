@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithRedirect, GoogleAuthProvider,OAuthProvider } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider,GithubAuthProvider } from "firebase/auth";
+
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -15,8 +16,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+const githubProvider=new GithubAuthProvider()
 
-const microsoftProvider = new OAuthProvider('microsoft.com').setCustomParameters({
-   prompt: 'consent'
-  })
-export { auth, signInWithRedirect,googleProvider,microsoftProvider };
+// const microsoftProvider = new OAuthProvider('microsoft.com').setCustomParameters({
+//    prompt: 'consent'
+//   })
+export { auth, signInWithRedirect,googleProvider,githubProvider};
