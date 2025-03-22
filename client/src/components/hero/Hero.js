@@ -31,31 +31,15 @@ function Hero() {
     }
   };
 
-  // const handleMicrosoftSignIn = async () => {
-  //   try {
-  //     await signInWithPopup(auth, microsoftProvider).then((result) => {
-  //       console.log("microsoft");
-  //       console.log("Logged in user name:", result.user.displayName); // Log the user's name
-  //     });
-  //   } catch (error) {
-  //     alert("Authentication failed, Please try again!");
-  //     console.log("redirect error");
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <div className="hero">
       <p className="oneline alegreya-700">
-        {/* Job hunting, reimagined. */}
-        Title
+      Code Together, Anytime, Anywhere!!
 
       </p>
       <p className="twoline alegreya-400">
-        {/* Stay on top of your applications, streamline the process, and track your
-        progress effortlessly <br />
-        —every step of the way. */}
-        Subtitle
+      Write and review code with teammates in perfect sync, wherever you are.
+        
       </p>
       <div className="loginButton">
         <button
@@ -86,9 +70,7 @@ function Hero() {
               ></button>
             </div>
             <div class="modal-body">
-              modal body
-              {/* Log in to track your job applications, sync emails, and stay
-              organized—all in one place. */}
+            Sign in with your preferred account and start coding with your team—no setup, no hassle.
               <br />
               <br />
               <div className="loginButton"> 
