@@ -1,15 +1,38 @@
 import React from "react";
 import "./Hero.css";
 import "../../App.css";
+import { useState,useEffect} from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, githubProvider } from "../../config/firebase";
+import Dashboard from "../dashboard/Dashboard";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import Header from "../header/Header";
+function Hero({ setUserName }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  const navigate = useNavigate(); // Initialize navigate function for redirection
 
-function Hero() {
+  useEffect(() => {
+    console.log("isLoggedIn state changed:", isLoggedIn);
+    console.log("userName state changed:", setUserName);
+    if (isLoggedIn) {
+      navigate("/dashboard"); // Redirect to dashboard if logged in
+    }
+  }, [isLoggedIn, navigate, setUserName]); // Add setUserName to the dependency array
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider).then((result) => {
         console.log("google");
         console.log("Logged in user name:", result.user.displayName); // Log the user's name
+        if (result.user) {
+          
+          setIsLoggedIn(true);
+          setUserName(result.user.displayName);
+          console.log("isLoggedIn", isLoggedIn);
+         
+        }
+
+
       });
     } catch (error) {
       alert("Authentication failed, Please try again!");
@@ -22,6 +45,8 @@ function Hero() {
       await signInWithPopup(auth, githubProvider).then((result) => {
         console.log("github");
         console.log("Logged in user name:", result.user.displayName);
+        setIsLoggedIn(true);
+        setUserName(result.user.displayName);
       });
     } catch (error) {
       alert("Authentication failed, Please try again!");
@@ -42,12 +67,19 @@ function Hero() {
         
       </p>
       <div className="loginButton">
-        <button
+        {/* <button
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
         >
           <span class="button_top"> Login </span>
-        </button>
+        </button> */}
+ <a class="fancy" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 
+  <span class="top-key"></span>
+  <span class="text">Login</span>
+  <span class="bottom-key-1"></span>
+  <span class="bottom-key-2"></span>
+</a>
+
       </div>
 
       <div
@@ -102,14 +134,10 @@ function Hero() {
               </div>
               <br />
               <div className="loginButton">
-              <button
-              
-                className="button-google"
-          
-                onClick={handleGithubSignIn}
-              >
-                Continue with GitHub
-              </button>
+              <button class="button" onClick={handleGithubSignIn}> 
+  <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <title>github</title> <rect fill="none" height="24" width="24"></rect> <path d="M12,2A10,10,0,0,0,8.84,21.5c.5.08.66-.23.66-.5V19.31C6.73,19.91,6.14,18,6.14,18A2.69,2.69,0,0,0,5,16.5c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1,2.15,2.15,0,0,0,2.91.83,2.16,2.16,0,0,1,.63-1.34C8,16.17,5.62,15.31,5.62,11.5a3.87,3.87,0,0,1,1-2.71,3.58,3.58,0,0,1,.1-2.64s.84-.27,2.75,1a9.63,9.63,0,0,1,5,0c1.91-1.29,2.75-1,2.75-1a3.58,3.58,0,0,1,.1,2.64,3.87,3.87,0,0,1,1,2.71c0,3.82-2.34,4.66-4.57,4.91a2.39,2.39,0,0,1,.69,1.85V21c0,.27.16.59.67.5A10,10,0,0,0,12,2Z"></path> </g></svg>
+  Continue with Github 
+  </button>
               </div>
             </div>
             <div class="modal-footer">
@@ -119,7 +147,9 @@ function Hero() {
           </div>
         </div>
       </div>
+      {isLoggedIn && <Dashboard />}
     </div>
+    
   );
 }
 

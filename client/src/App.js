@@ -6,11 +6,12 @@ import CodeSync from './components/CodeSync';
 import Profile from './components/profile/Profile';
 import Header from './components/header/Header';
 
+
 function App() {
   return (
     <>
       <Router>
-        <Header />
+      <Header />
         <Routes>
           <Route path="/" Component={CodeSync} />
           <Route path="/dashboard" Component={Dashboard} />

@@ -1,7 +1,7 @@
 function DemoSection() {
   return (
     <div>
-      <h1>Demo Section</h1>
+      {/* <h1>Demo Section</h1> */}
     </div>
   );
 }   

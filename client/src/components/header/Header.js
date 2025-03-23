@@ -2,7 +2,8 @@ import React from 'react';
 import './header.css';
 
 
-function Header() {
+function Header({ userName }) {
+  console.log("Header userName:", userName); // Log the userName prop
   return (
     <header className="header">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -11,7 +12,8 @@ function Header() {
   CodeSync
 </a>
 <span class="navbar-text">
-        Login
+ 
+{userName}
       </span>
   </div>
 </nav>

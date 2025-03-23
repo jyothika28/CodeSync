@@ -2,8 +2,7 @@
 function Dashboard() {
   return (
     <div>
-      <h1>Dashboard</h1>
-      
+      <h1>Real time Code collaborator</h1>
     </div>
   );
 }
