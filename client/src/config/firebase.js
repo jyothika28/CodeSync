@@ -17,8 +17,4 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const githubProvider=new GithubAuthProvider()
-
-// const microsoftProvider = new OAuthProvider('microsoft.com').setCustomParameters({
-//    prompt: 'consent'
-//   })
 export { auth, signInWithRedirect,googleProvider,githubProvider};

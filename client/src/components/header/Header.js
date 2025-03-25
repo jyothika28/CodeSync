@@ -52,24 +52,24 @@ function Header({ userName }) {
                       to="/profile" 
                       className="dropdown-item"
                     >
-                      <i className="bi bi-person me-2"></i>Profile
+                      <i className="fa-solid fa-user"></i> Profile
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link 
                       to="/dashboard" 
                       className="dropdown-item"
                     >
                       <i className="bi bi-speedometer2 me-2"></i>Dashboard
                     </Link>
-                  </li>
+                  </li> */}
                   <li><hr className="dropdown-divider" /></li>
                   <li>
                     <button 
                       onClick={handleSignOut} 
                       className="dropdown-item text-danger"
                     >
-                      <i className="bi bi-box-arrow-right me-2"></i>Sign Out
+                      <i className="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
                     </button>
                   </li>
                 </ul>

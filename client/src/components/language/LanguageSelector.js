@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { LANGUAGE_VERSIONS } from "../../constants";
 
+// Mapping of language keys to display names
+const LANGUAGE_DISPLAY_NAMES = {
+  javascript: "JavaScript",
+  typescript: "TypeScript",
+  python: "Python",
+  java: "Java",
+  csharp: "C#",
+  php: "PHP"
+};
+
 const LanguageSelector = ({ language, onSelect }) => {
   const [selectedLanguage, setSelectedLanguage] = useState(language);
 
@@ -19,7 +29,8 @@ const LanguageSelector = ({ language, onSelect }) => {
           data-bs-toggle="dropdown" 
           aria-expanded="false"
         >
-          {selectedLanguage} ({LANGUAGE_VERSIONS[selectedLanguage]})
+          {LANGUAGE_DISPLAY_NAMES[selectedLanguage]} 
+          {/* ({LANGUAGE_VERSIONS[selectedLanguage]}) */}
         </button>
         <ul className="dropdown-menu w-40">
           {Object.entries(LANGUAGE_VERSIONS).map(([lang, version]) => (
@@ -28,7 +39,8 @@ const LanguageSelector = ({ language, onSelect }) => {
                 className="dropdown-item" 
                 onClick={() => handleLanguageSelect(lang)}
               >
-                {lang} ({version})
+                {LANGUAGE_DISPLAY_NAMES[lang]}
+                 {/* ({version}) */}
               </button>
             </li>
           ))}
