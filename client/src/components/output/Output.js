@@ -26,7 +26,7 @@ const Output = ({ editorRef, language }) => {
     <div className="w-50">
       <h5>Output</h5>
       <button className="btn btn-success mb-3" disabled={isLoading} onClick={runCode}>
-        {isLoading ? "Running..." : "Run Code"}
+      <i className="fa-solid fa-play"></i> {isLoading ? " Running..." : " Run Code"}
       </button>
       <div className={`border p-3 ${isError ? "text-danger border-danger" : "border-light"}`}>
         {output ? output.map((line, i) => <p key={i}>{line}</p>) : 'Click "Run Code" to see the output here'}

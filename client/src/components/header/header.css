@@ -63,4 +63,8 @@
   .button:hover::before {
     opacity: 1;
   }
+
+  .btn-normal-case {
+    text-transform: none !important;
+  }
   

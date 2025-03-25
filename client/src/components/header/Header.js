@@ -27,13 +27,13 @@ function Header({ userName }) {
           
           {userName && (
             <div className="ms-auto d-flex align-items-center">
-              {/* New buttons added here */}
+              
               <div className="me-3">
                 <button className="btn btn-primary me-2">
-                  <i className="bi bi-plus-circle me-1"></i>New Project
+                <i class="fa-solid fa-plus"></i> Join a session
                 </button>
                 <button className="btn btn-outline-secondary">
-                  <i className="bi bi-chat-left-text me-1"></i>Invite
+                <i className="fa-solid fa-user-plus"></i> Invite
                 </button>
               </div>
 
