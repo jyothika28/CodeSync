@@ -1,14 +1,16 @@
 import React from 'react';
 import './header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 
 function Header({ userName }) {
+  const navigate = useNavigate();
+
   const handleSignOut = () => {
     auth.signOut()
       .then(() => {
-        // Redirect to home page or reload
-        window.location.href = '/';
+        // Redirect to home page
+        navigate('/');
       })
       .catch((error) => {
         console.error("Sign out error", error);
@@ -22,24 +24,55 @@ function Header({ userName }) {
           <Link className="navbar-brand agu-display-400 logo" to="/">
             CodeSync
           </Link>
+          
           {userName && (
-            <div className="navbar-nav ml-auto d-flex align-items-center">
-              <span className="navbar-text mr-3">
-                Welcome, {userName}
-              </span>
-              <div className="btn-group">
-                <Link to="/dashboard" className="btn btn-primary mr-2">
-                  Dashboard
-                </Link>
-                <Link to="/profile" className="btn btn-secondary mr-2">
-                  Profile
-                </Link>
-                <button 
-                  onClick={handleSignOut} 
-                  className="btn btn-danger"
-                >
-                  Sign Out
+            <div className="ms-auto d-flex align-items-center">
+              {/* New buttons added here */}
+              <div className="me-3">
+                <button className="btn btn-primary me-2">
+                  <i className="bi bi-plus-circle me-1"></i>New Project
                 </button>
+                <button className="btn btn-outline-secondary">
+                  <i className="bi bi-chat-left-text me-1"></i>Invite
+                </button>
+              </div>
+
+              <div className="dropdown">
+                <button 
+                  className="btn btn-secondary dropdown-toggle" 
+                  type="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  {userName}
+                </button>
+                <ul className="dropdown-menu dropdown-menu-dark">
+                  <li>
+                    <Link 
+                      to="/profile" 
+                      className="dropdown-item"
+                    >
+                      <i className="bi bi-person me-2"></i>Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link 
+                      to="/dashboard" 
+                      className="dropdown-item"
+                    >
+                      <i className="bi bi-speedometer2 me-2"></i>Dashboard
+                    </Link>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <button 
+                      onClick={handleSignOut} 
+                      className="dropdown-item text-danger"
+                    >
+                      <i className="bi bi-box-arrow-right me-2"></i>Sign Out
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           )}
