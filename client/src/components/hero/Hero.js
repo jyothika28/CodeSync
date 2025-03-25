@@ -1,60 +1,35 @@
 import React from "react";
 import "./Hero.css";
 import "../../App.css";
-import { useState,useEffect} from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, githubProvider } from "../../config/firebase";
-import Dashboard from "../dashboard/Dashboard";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
-import Header from "../header/Header";
 function Hero({ setUserName }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-  const navigate = useNavigate(); // Initialize navigate function for redirection
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("isLoggedIn state changed:", isLoggedIn);
-    console.log("userName state changed:", setUserName);
-    if (isLoggedIn) {
-      navigate("/dashboard"); // Redirect to dashboard if logged in
-    }
-  }, [isLoggedIn, navigate, setUserName]); // Add setUserName to the dependency array
-  const handleGoogleSignIn = async () => {
+  const handleSignIn = async (provider) => {
     try {
-      await signInWithPopup(auth, googleProvider).then((result) => {
-        console.log("google");
-        console.log("Logged in user name:", result.user.displayName); // Log the user's name
-        if (result.user) {
-          
-          setIsLoggedIn(true);
-          setUserName(result.user.displayName);
-          console.log("isLoggedIn", isLoggedIn);
-         
-        }
-
-
-      });
+      const result = await signInWithPopup(auth, provider);
+      console.log("Logged in user:", result.user);
+      
+      if (result.user) {
+        // Use display name or email if display name is not available
+        const displayName = result.user.displayName || result.user.email.split('@')[0];
+        
+        // Call setUserName to update the parent component's state
+        setUserName(displayName);
+        
+        // Navigate to dashboard
+        navigate("/dashboard");
+      }
     } catch (error) {
-      alert("Authentication failed, Please try again!");
-      console.log("redirect error");
-      console.log(error);
+      console.error("Authentication error:", error);
+      alert("Authentication failed. Please try again!");
     }
   };
-  const handleGithubSignIn = async () => {
-    try {
-      await signInWithPopup(auth, githubProvider).then((result) => {
-        console.log("github");
-        console.log("Logged in user name:", result.user.displayName);
-        setIsLoggedIn(true);
-        setUserName(result.user.displayName);
-      });
-    } catch (error) {
-      alert("Authentication failed, Please try again!");
-      console.error("Error code:", error.code);
-      console.error("Error message:", error.message);
-      console.error("Error details:", error);
-    }
-  };
+
+  const handleGoogleSignIn = () => handleSignIn(googleProvider);
+  const handleGithubSignIn = () => handleSignIn(githubProvider);
 
   return (
     <div className="hero">
@@ -73,7 +48,7 @@ function Hero({ setUserName }) {
         >
           <span class="button_top"> Login </span>
         </button> */}
- <a class="fancy" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 
+ <a class="fancy" href="#s" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 
   <span class="top-key"></span>
   <span class="text">Login</span>
   <span class="bottom-key-1"></span>
@@ -147,7 +122,6 @@ function Hero({ setUserName }) {
           </div>
         </div>
       </div>
-      {isLoggedIn && <Dashboard />}
     </div>
     
   );
